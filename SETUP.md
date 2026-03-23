@@ -1,49 +1,33 @@
-## Requisitos
+## 1. Instalar dependencias
 
-- Node.js 22 LTS
-- Docker Desktop
-- Git
-
-## Instalacion
-
-```bash
-git clone <url-del-repositorio>
-cd cultivapp-backend
 npm install
-```
+npm install express prisma @prisma/client bcryptjs jsonwebtoken dotenv zod @prisma/adapter-pg pg
+npm install -D typescript ts-node nodemon @types/express @types/node @types/bcryptjs @types/jsonwebtoken jest ts-jest supertest @types/supertest @types/jest @types/pg
 
-## Variables de entorno
+## 2. Crear el archivo .env en la raiz del proyecto con este contenido:
 
-```env
 NODE_ENV=development
 PORT=3000
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/cultivapp_db
 JWT_SECRET=reemplaza_con_un_string_largo
 JWT_EXPIRES_IN=7d
-```
 
-## Base de datos
+## 3. Inicializar Prisma
 
-```bash
-docker compose up -d
-npx prisma migrate dev
+npx prisma init --datasource-provider postgresql
 npx prisma generate
-```
 
-## Iniciar
+## 4. Levantar la base de datos
 
-```bash
+docker compose up -d
+
+Verificar:
+docker ps
+
+## 5. Ejecutar migraciones
+
+npx prisma migrate dev --name init
+
+## 6. Iniciar el servidor
+
 npm run dev
-```
-
-## Scripts
-
-`npm run dev` — desarrollo | `npm run build` — compilar | `npm start` — produccion | `npm test` — pruebas | `npm run test:coverage` — cobertura | `npm run db:migrate` — migraciones | `npm run db:generate` — cliente Prisma | `npm run db:studio` — Prisma Studio
-
-## Produccion
-
-express, prisma, @prisma/client, bcryptjs, jsonwebtoken, dotenv, zod
-
-## Desarrollo
-
-typescript, ts-node, nodemon, jest, ts-jest, supertest, @types/express, @types/node, @types/bcryptjs, @types/jsonwebtoken, @types/jest, @types/supertest
